@@ -47,15 +47,18 @@ def server():
     s = socket.socket()
     s.bind(("0.0.0.0", SERVICE_PORT))
     s.listen()
-    print("Humidity Service running (REAL DATA)...")
+    print("Humidity Service running...")
 
     while True:
-        conn, _ = s.accept()
+        conn, addr = s.accept()
+        print(f"[CLIENT REQUEST] from {addr[0]}")
+
         try:
             humidity = get_real_humidity()
-            conn.send(f"Humidity in {CITY}: {humidity}%".encode())
+            conn.send(f"Humidity: {humidity}%".encode())
         except:
             conn.send(b"Failed to get humidity data")
+
         conn.close()
 
 register()

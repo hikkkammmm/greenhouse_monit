@@ -37,7 +37,7 @@ while True:
 
     choice = input("Pilih menu: ")
 
-    # 🔍 LIST SERVICE
+    # fucntion untuk setiap pilihan menu
     if choice == "1":
         data = send_request({"type": "list"})
         services = json.loads(data.decode())
@@ -49,7 +49,7 @@ while True:
             for name, info in services.items():
                 print(f"- {name} ({info['ip']}:{info['port']})")
 
-    # 🔗 AMBIL DATA SATU SERVICE
+    #user ambil data dari service
     elif choice == "2":
         name = input("Nama service: ")
         data = send_request({"type": "lookup", "name": name})
@@ -64,12 +64,12 @@ while True:
             print("Response:", s.recv(4096).decode())
             s.close()
 
-    # 📊 DASHBOARD REAL (REFRESH SATU LAYAR)
+    # tampilan dashboard monitoring semuaserviceyang register
     elif choice == "3":
         try:
             while True:
                 clear_screen()
-                print("🌱 SMART GREENHOUSE DASHBOARD")
+                print("SMART GREENHOUSE DASHBOARD")
                 print("=" * 45)
 
                 data = send_request({"type": "list"})

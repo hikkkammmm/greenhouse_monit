@@ -44,7 +44,8 @@ def server():
     print("Camera Service running...")
 
     while True:
-        conn, _ = s.accept()
+        conn, addr = s.accept()
+        print(f"[CLIENT REQUEST] from {addr[0]}")
         conn.send(b"Camera Snapshot Taken")
         conn.close()
 

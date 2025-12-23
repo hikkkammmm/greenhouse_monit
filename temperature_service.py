@@ -47,16 +47,16 @@ def server():
     s = socket.socket()
     s.bind(("0.0.0.0", SERVICE_PORT))
     s.listen()
-    print("Temperature Service running (REAL DATA)...")
+    print("Temperature Service running...")
 
     while True:
-        conn, _ = s.accept()
-        try:
-            temp = get_real_temperature()
-            conn.send(f"Temperature in {CITY}: {temp} °C".encode())
-        except:
-            conn.send(b"Failed to get temperature data")
+        conn, addr = s.accept()
+        print(f"[CLIENT REQUEST] from {addr[0]}")
+
+        temp = get_real_temperature()
+        conn.send(f"Temperature: {temp} °C".encode())
         conn.close()
+
 
 register()
 threading.Thread(target=heartbeat, daemon=True).start()
